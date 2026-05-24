@@ -1,15 +1,32 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CustomInput from '../common/CustomInput'
 import CustomButton from '../common/CustomButton'
 
 const Login = () => {
-
     const navigation = useNavigation();
 
+    const [email, setEmail] = useState('')
+    const [badEmail, setBadEmail] = useState(false)
+    const [password, setPassword] = useState('')
+    const [badPassword, setBadPassword] = useState(false)
+
+    const validate = () => {
+        if (email == '') {
+            setBadEmail(true)
+        } else {
+            setBadEmail(false)
+        }
+        if (password == '') {
+            setBadPassword(true)
+        } else {
+            setBadPassword(false)
+        }
+    }
+
     return (
-        <View   >
+        <View style={{ flex: 1 }}>
             <Image 
                 style={styles.splashImg}
                 source={require('../images/splash.png')} 
@@ -18,21 +35,35 @@ const Login = () => {
             <CustomInput 
                 icon={require('../images/email.png')}
                 placeholder={'Enter Email'}
-                // value={value}
-                // onChangeText={onChangeText}
+                value={email}
+                onChangeText={(txt) => {
+                    setEmail(txt)
+                }}
             />
+            {
+                badEmail 
+                    ? <Text style={styles.errorTxt}>Please Enter Email</Text> 
+                    : <></>
+            }
             <CustomInput 
                 icon={require('../images/password.png')} 
                 placeholder={'Enter Password'}
-                // value={value}
-                // onChangeText={onChangeText}
+                value={password}
+                onChangeText={(txt) => {
+                    setPassword(txt)
+                }}
                 type={'password'}
             />
+            {
+                badPassword
+                    ? <Text style={styles.errorTxt}>Please Enter Password</Text> 
+                    : <></>
+            }
             <CustomButton  
                 title={'Login'} 
                 bgColor={'green'} 
                 txtColor={'#FFF'} 
-                onPress={() => {}}
+                onPress={validate}
             />
             <Text 
                 style={styles.createAccountTxt}
@@ -65,6 +96,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
         marginTop: 20,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        textDecorationLine: 'underline'
+    },
+    errorTxt: {
+        fontSize: 14, 
+        fontWeight: '400', 
+        color: 'red', 
+        marginLeft: 30, 
+        marginTop: 4
     }
 })
