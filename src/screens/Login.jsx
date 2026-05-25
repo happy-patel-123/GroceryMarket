@@ -1,29 +1,34 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import { ActivityIndicator, Alert, Image, StyleSheet, Text, View } from 'react-native'
+import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CustomInput from '../common/CustomInput'
 import CustomButton from '../common/CustomButton'
+import { Formik } from 'formik'
+import * as Yup from 'yup';
 
 const Login = () => {
     const navigation = useNavigation();
 
-    const [email, setEmail] = useState('')
-    const [badEmail, setBadEmail] = useState(false)
-    const [password, setPassword] = useState('')
-    const [badPassword, setBadPassword] = useState(false)
+    const validationSchema = Yup.object({
+        email: Yup.string()
+            .email('Please Enter Correct Email')
+            .required('Email is required'),
+        password: Yup.string()
+            .min(8, 'Password must be at least 8 characters')
+            .required('Password is required')
+    })
 
-    const validate = () => {
-        if (email == '') {
-            setBadEmail(true)
-        } else {
-            setBadEmail(false)
-        }
-        if (password == '') {
-            setBadPassword(true)
-        } else {
-            setBadPassword(false)
-        }
-    }
+    // Acting as a server-side verification
+    const login = ({ email, password }) =>
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (email === 'test@test.com') {
+                    reject(new Error("Duplicate email,please try again."));
+                }
+                resolve(true);
+            }, 5000);
+    });
+
 
     return (
         <View style={{ flex: 1 }}>
@@ -32,47 +37,81 @@ const Login = () => {
                 source={require('../images/splash.png')} 
             />
             <Text style={styles.headerTxt}>Login</Text>
-            <CustomInput 
-                icon={require('../images/email.png')}
-                placeholder={'Enter Email'}
-                value={email}
-                onChangeText={(txt) => {
-                    setEmail(txt)
-                }}
-            />
-            {
-                badEmail 
-                    ? <Text style={styles.errorTxt}>Please Enter Email</Text> 
-                    : <></>
-            }
-            <CustomInput 
-                icon={require('../images/password.png')} 
-                placeholder={'Enter Password'}
-                value={password}
-                onChangeText={(txt) => {
-                    setPassword(txt)
-                }}
-                type={'password'}
-            />
-            {
-                badPassword
-                    ? <Text style={styles.errorTxt}>Please Enter Password</Text> 
-                    : <></>
-            }
-            <CustomButton  
-                title={'Login'} 
-                bgColor={'green'} 
-                txtColor={'#FFF'} 
-                onPress={validate}
-            />
-            <Text 
-                style={styles.createAccountTxt}
-                onPress={() => {
-                    navigation.navigate('SignUp')
-                }}
+            <Formik
+                initialValues={{ email: '', password: '' }}
+                validationSchema={validationSchema}
+                onSubmit={(values, actions) => 
+                    login({ email: values.email, password: values.password })
+                        .then(() => {
+                            Alert.alert('User Logged Succesfully.');
+                        })
+                        .catch(error => {
+                            actions.setFieldError('general', error.message);
+                        })
+                        .finally(() => {
+                            actions.setSubmitting(false);
+                            actions.resetForm();
+                        })
+                }
             >
-                Create New Account
-            </Text>
+                {({ values, handleChange, handleBlur, handleSubmit, errors, touched, isSubmitting, resetForm }) => {
+                    return (
+                        <>
+                            <CustomInput 
+                                icon={require('../images/email.png')}
+                                placeholder={'Enter Email'}
+                                value={values.email}
+                                onChangeText={handleChange('email')}
+                                onBlur={handleBlur("email")} // Exactly don't know the use
+                            />
+                            {
+                                touched.email && errors.email 
+                                    ? <Text style={styles.errorTxt}>{errors.email}</Text> 
+                                    : <></>
+                            }
+                            <CustomInput 
+                                icon={require('../images/password.png')}
+                                placeholder={'Enter Password'}
+                                value={values.password}
+                                onChangeText={handleChange('password')}
+                                onBlur={handleBlur("password")}
+                                type={'password'}
+                            />
+                            {
+                                touched.password && errors.password
+                                    ? <Text style={styles.errorTxt}>{errors.password}</Text> 
+                                    : <></>
+                            }
+                            {
+                                isSubmitting 
+                                    ? <ActivityIndicator style={{ marginTop: 45 }} size='large' />
+                                    : <CustomButton  
+                                        title={'Login'} 
+                                        bgColor={'green'} 
+                                        txtColor={'#FFF'} 
+                                        onPress={handleSubmit}
+                                    />
+                            }
+                            {
+                                errors.general
+                                    ? <Text style={[styles.errorTxt, { alignSelf: 'center', marginLeft: 0 }]}>{errors.general}</Text> 
+                                    : <></>
+                            }
+                            <Text 
+                                style={styles.createAccountTxt}
+                                onPress={() => {
+                                    navigation.navigate('SignUp')
+                                    setTimeout(() => {
+                                        resetForm()
+                                    }, 2000);
+                                }}
+                            >
+                                Create New Account
+                            </Text>
+                        </>
+                    )
+                }}
+            </Formik>
         </View>
     )
 }
