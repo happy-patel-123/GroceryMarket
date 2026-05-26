@@ -5,6 +5,7 @@ import CustomInput from '../common/CustomInput'
 import CustomButton from '../common/CustomButton'
 import { Formik } from 'formik'
 import * as Yup from 'yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = () => {
     const navigation = useNavigation();
@@ -14,17 +15,24 @@ const Login = () => {
             .email('Please Enter Correct Email')
             .required('Email is required'),
         password: Yup.string()
-            .min(8, 'Password must be at least 8 characters')
             .required('Password is required')
     })
 
-    // Acting as a server-side verification
     const login = ({ email, password }) =>
-        new Promise((resolve, reject) => {
-            setTimeout(() => {
-                if (email === 'test@test.com') {
-                    reject(new Error("Duplicate email,please try again."));
+        new Promise(async (resolve, reject) => {
+
+            setTimeout(async () => {
+
+                const storedUser = await AsyncStorage.getItem('user');
+                if (!storedUser) {
+                    return reject(new Error("User doesn't exist, please sign up"));
                 }
+
+                const parsedUser = JSON.parse(storedUser);
+                if (parsedUser.email !== email || parsedUser.password !== password) {
+                    return reject(new Error("Invalid email or password"));
+                }
+
                 resolve(true);
             }, 5000);
     });
@@ -43,14 +51,15 @@ const Login = () => {
                 onSubmit={(values, actions) => 
                     login({ email: values.email, password: values.password })
                         .then(() => {
-                            Alert.alert('User Logged Succesfully.');
+                            // Alert.alert('User Logged Succesfully.');
+                            navigation.replace('Home');
+                            actions.resetForm();
                         })
                         .catch(error => {
                             actions.setFieldError('general', error.message);
                         })
                         .finally(() => {
                             actions.setSubmitting(false);
-                            actions.resetForm();
                         })
                 }
             >

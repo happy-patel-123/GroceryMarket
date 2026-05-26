@@ -1,10 +1,11 @@
-import { ActivityIndicator, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text } from 'react-native'
+import { ActivityIndicator, Alert, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CustomInput from '../common/CustomInput'
 import CustomButton from '../common/CustomButton'
 import { Formik } from 'formik'
 import * as Yup from 'yup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignUp = () => {
     const navigation = useNavigation();
@@ -28,15 +29,23 @@ const SignUp = () => {
             .required('Confirm password is required'),
     })
 
-    const signup = ({ email, password }) =>
-        new Promise((resolve, reject) => {
-            setTimeout(() => {
+    // Acting as a server-side verification
+    const signup = ({ email, password, name }) =>
+        new Promise(async (resolve, reject) => {
+            setTimeout(async () => {
                 if (email === 'test@test.com') {
-                    reject(new Error("Duplicate email,please try again."));
+                    reject(new Error("Duplicate email, please try again."));
                 }
+                await saveData(email, password, name)
                 resolve(true);
             }, 5000);
     });
+
+    const saveData = async (email, password, name) => {
+        const userData = { email, password, name}
+        console.log(userData)
+        await AsyncStorage.setItem('user', JSON.stringify(userData));
+    }
 
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior='padding'>
@@ -44,9 +53,10 @@ const SignUp = () => {
                 initialValues={{ name: '', email: '', number: '', password: '', confirmPassword: '' }}
                 validationSchema={validationSchema}
                 onSubmit={(values, actions) => 
-                    signup({ email: values.email, password: values.password })
+                    signup({ email: values.email, password: values.password, name: values.name })
                         .then(() => {
-                            Alert.alert('User Succesfully.');
+                            Alert.alert('User Registered Succesfully.');
+                            actions.resetForm();
                         })
                         .catch(error => {
                             actions.setFieldError('general', error.message);
@@ -56,7 +66,7 @@ const SignUp = () => {
                         })
                 }
             >
-                {({ values, handleChange, handleBlur, handleSubmit, errors, touched, isSubmitting  }) => {
+                {({ values, handleChange, handleBlur, handleSubmit, errors, touched, isSubmitting, resetForm  }) => {
                     return (
                         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
                             <Image 
@@ -127,7 +137,7 @@ const SignUp = () => {
                                     : <></>
                             }
                             {
-                                false 
+                                isSubmitting 
                                     ? <ActivityIndicator style={{ marginTop: 45 }} size='large' />
                                     : <CustomButton
                                         title={'SignUp'}
@@ -145,6 +155,9 @@ const SignUp = () => {
                                 style={styles.createAccountTxt}
                                 onPress={() => {
                                     navigation.goBack()
+                                    setTimeout(() => {
+                                        resetForm()
+                                    }, 2000);
                                 }}
                             >
                                 Already Have Account ?
