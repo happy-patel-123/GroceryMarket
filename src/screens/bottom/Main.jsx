@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../common/Header'
 import { groceryProducts } from '../../data/GroceryProducts'
 import ProductCard from '../../common/ProductCard'
+import { localAssets } from '../../assets/Assets'
 
 const Main = () => {
     const [groceryCategory, setGroceryCategory] = useState([])
@@ -31,7 +32,7 @@ const Main = () => {
             <View style={{ flex: 1 }}>
                 <StatusBar barStyle={'dark-content'}/>
                 <Header />
-                <Image source={require('../../images/banner.jpg')} style={{ height: 200, width: '94%', alignSelf: 'center', marginTop: 8 }}/>
+                <Image source={localAssets.banner} style={{ height: 200, width: '94%', alignSelf: 'center', marginTop: 8 }}/>
                 
                 <View style={{ marginTop: 16, marginRight: 16 }}>
                     <FlatList 

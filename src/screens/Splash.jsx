@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { localAssets } from '../assets/Assets';
 
 const Splash = () => {
     const navigation = useNavigation()
@@ -31,7 +32,7 @@ const Splash = () => {
     return (
         <View style={styles.container}>
             <Image 
-                source={require('../images/splash.png')} 
+                source={localAssets.splash} 
                 style={{ width: 250, height: 250 }}
             />
         </View>

@@ -6,6 +6,7 @@ import CustomButton from '../common/CustomButton'
 import { Formik } from 'formik'
 import * as Yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { localAssets } from '../assets/Assets'
 
 const SignUp = () => {
     const navigation = useNavigation();
@@ -71,11 +72,11 @@ const SignUp = () => {
                         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
                             <Image 
                                 style={styles.splashImg}
-                                source={require('../images/splash.png')} 
+                                source={localAssets.splash} 
                             />
                             <Text style={styles.headerTxt}>Sign Up</Text>
                             <CustomInput 
-                                icon={require('../images/user.png')}
+                                icon={localAssets.user}
                                 placeholder={'Enter Name'}
                                 value={values.name}
                                 onChangeText={handleChange('name')}
@@ -87,7 +88,7 @@ const SignUp = () => {
                                     : <></>
                             }
                             <CustomInput 
-                                icon={require('../images/email.png')}
+                                icon={localAssets.email}
                                 placeholder={'Enter Email'}
                                 value={values.email}
                                 onChangeText={handleChange('email')}
@@ -99,7 +100,7 @@ const SignUp = () => {
                                     : <></>
                             }
                             <CustomInput 
-                                icon={require('../images/phone.png')}
+                                icon={localAssets.phone}
                                 placeholder={'Enter Mobile Number'}
                                 keyboardtype={'number-pad'}
                                 value={values.number}
@@ -112,7 +113,7 @@ const SignUp = () => {
                                     : <></>
                             }
                             <CustomInput 
-                                icon={require('../images/password.png')} 
+                                icon={localAssets.password} 
                                 placeholder={'Enter Password'}
                                 value={values.password}
                                 onChangeText={handleChange('password')}
@@ -125,7 +126,7 @@ const SignUp = () => {
                                     : <></>
                             }
                             <CustomInput 
-                                icon={require('../images/password.png')} 
+                                icon={localAssets.password} 
                                 placeholder={'Confirm Password'}
                                 value={values.confirmPassword}
                                 onChangeText={handleChange('confirmPassword')}

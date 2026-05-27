@@ -6,6 +6,7 @@ import CustomButton from '../common/CustomButton'
 import { Formik } from 'formik'
 import * as Yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { localAssets } from '../assets/Assets'
 
 const Login = () => {
     const navigation = useNavigation();
@@ -42,7 +43,7 @@ const Login = () => {
         <View style={{ flex: 1 }}>
             <Image 
                 style={styles.splashImg}
-                source={require('../images/splash.png')} 
+                source={localAssets.splash} 
             />
             <Text style={styles.headerTxt}>Login</Text>
             <Formik
@@ -67,7 +68,7 @@ const Login = () => {
                     return (
                         <>
                             <CustomInput 
-                                icon={require('../images/email.png')}
+                                icon={localAssets.email}
                                 placeholder={'Enter Email'}
                                 value={values.email}
                                 onChangeText={handleChange('email')}
@@ -79,7 +80,7 @@ const Login = () => {
                                     : <></>
                             }
                             <CustomInput 
-                                icon={require('../images/password.png')}
+                                icon={localAssets.password}
                                 placeholder={'Enter Password'}
                                 value={values.password}
                                 onChangeText={handleChange('password')}

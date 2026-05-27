@@ -1,5 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
+import { localAssets } from '../assets/Assets'
 
 const ProductCard = ({ item }) => {
     return (
@@ -13,7 +14,7 @@ const ProductCard = ({ item }) => {
                 </TouchableOpacity>
             </View>
             <TouchableOpacity style={styles.heartContainer}>
-                <Image source={require('../images/heart.png')} style={{ width: 24, height: 24 }}/>
+                <Image source={localAssets.heart} style={{ width: 24, height: 24 }}/>
             </TouchableOpacity>
         </View>
     )

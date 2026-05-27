@@ -5,6 +5,7 @@ import Search from '../screens/bottom/Search'
 import Cart from '../screens/bottom/Cart'
 import WishList from '../screens/bottom/WishList'
 import Profile from '../screens/bottom/Profile'
+import { localAssets } from "../assets/Assets"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = () => {
@@ -36,13 +37,13 @@ const Home = () => {
             <View style={styles.container}>
                 <TouchableOpacity style={styles.iconContainer} onPress={() => setSelectedTab(0)}>
                     <Image 
-                        source={require('../images/home.png')} 
+                        source={localAssets.home} 
                         style={{ height: 30, width: 30, tintColor: selectedTab == 0 ? '#000': '#8e8e8e' }}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={() => setSelectedTab(1)}>
                     <Image 
-                        source={require('../images/search.png')}
+                        source={localAssets.search}
                         style={{ height: 30, width: 30, tintColor: selectedTab == 1 ? '#000': '#8e8e8e' }}
                     />
                 </TouchableOpacity>
@@ -59,18 +60,18 @@ const Home = () => {
                         }}
                         onPress={() => setSelectedTab(2)}
                     >
-                        <Image source={require('../images/bag.png')} style={{ height: 30, width: 30, tintColor: selectedTab == 2 ? '#000' : '#FFF' }}/>
+                        <Image source={localAssets.bag} style={{ height: 30, width: 30, tintColor: selectedTab == 2 ? '#000' : '#FFF' }}/>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity style={styles.iconContainer} onPress={() => setSelectedTab(3)}>
                     <Image 
-                        source={require('../images/heart.png')} 
+                        source={localAssets.heart} 
                         style={{ height: 30, width: 30, tintColor: selectedTab == 3 ? '#000': '#8e8e8e' }}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={() => setSelectedTab(4)}>
                     <Image 
-                        source={require('../images/user.png')} 
+                        source={localAssets.user} 
                         style={{ height: 30, width: 30, tintColor: selectedTab == 4 ? '#000': '#8e8e8e' }}
                     />
                 </TouchableOpacity>
