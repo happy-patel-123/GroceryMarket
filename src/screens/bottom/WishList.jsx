@@ -10,30 +10,35 @@ const WishList = () => {
 
     return (
         <View style={{ flex: 1, marginTop: 32, marginBottom: 60 }}>
-            <FlatList 
-                data={wishListData}
-                renderItem={({ item, index}) => {
-                    return (
-                        <View style={styles.cardContainer}>
-                            <Image source={item.image} style={styles.cardImg} />
-                            <Text style={styles.cardTitle}>{item.name}</Text>
-                            <View style={styles.cardPriceContainer}>
-                                <Text style={styles.price}>{'₹'}{' '}{item.price}</Text>
-                                <TouchableOpacity style={styles.addToCartView} onPress={() => {
-                                    dispatch(addToCart(item))
+            {wishListData.length ?
+                <FlatList
+                    data={wishListData}
+                    renderItem={({ item, index }) => {
+                        return (
+                            <View style={styles.cardContainer}>
+                                <Image source={item.image} style={styles.cardImg} />
+                                <Text style={styles.cardTitle}>{item.name}</Text>
+                                <View style={styles.cardPriceContainer}>
+                                    <Text style={styles.price}>{'₹'}{' '}{item.price}</Text>
+                                    <TouchableOpacity style={styles.addToCartView} onPress={() => {
+                                        dispatch(addToCart(item))
+                                    }}>
+                                        <Text style={styles.addToCart}>Add to Cart</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <TouchableOpacity style={styles.heartContainer} onPress={() => {
+                                    dispatch(removeFromWishList(index))
                                 }}>
-                                    <Text style={styles.addToCart}>Add to Cart</Text>
+                                    <Image source={localAssets.heart_fill} style={{ width: 24, height: 24, tintColor: 'red' }} />
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity style={styles.heartContainer} onPress={() => {
-                                dispatch(removeFromWishList(index))
-                            }}>
-                                <Image source={localAssets.heart_fill} style={{ width: 24, height: 24, tintColor: 'red' }} />
-                            </TouchableOpacity>
-                        </View>
-                    )
-                }}
-            />
+                        )
+                    }}
+                /> :
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 24, fontWeight: '400' }}>Your WishList is Empty</Text>
+                </View>
+            }
         </View>
     )
 }
@@ -42,7 +47,7 @@ export default WishList
 
 const styles = StyleSheet.create({
     cardContainer: {
-        width: '90%', 
+        width: '90%',
         height: 250,
         borderRadius: 20,
         backgroundColor: '#FFF',
@@ -69,7 +74,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 16
     },
     addToCartView: {
-        borderWidth: 1, 
+        borderWidth: 1,
         borderRadius: 20,
         paddingHorizontal: 8,
         paddingVertical: 4

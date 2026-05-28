@@ -1,6 +1,8 @@
 export const localAssets = {
     // Icons
+    back: require('./icons/back.png'),
     bag: require('./icons/bag.png'),
+    dummy_user: require('./icons/dummy_user.png'),
     email: require('./icons/email.png'),
     heart: require('./icons/heart.png'),
     heart_fill: require('./icons/heart_fill.png'),
@@ -9,9 +11,15 @@ export const localAssets = {
     password: require('./icons/password.png'),
     phone: require('./icons/phone.png'),
     search: require('./icons/search.png'),
+    settings: require('./icons/settings.png'),
     show: require('./icons/show.png'),
     splash: require('./icons/splash.png'),
     user: require('./icons/user.png'),
+    city: require('./icons/city.png'),
+    building: require('./icons/building.png'),
+    pin: require('./icons/pin.png'),
+    bin: require('./icons/bin.png'),
+
 
     // Images
     banner: require('./images/banner.jpg'),

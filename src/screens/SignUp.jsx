@@ -19,8 +19,9 @@ const SignUp = () => {
             .email()
             .required('Eamil is required'),
         number: Yup.number()
-            .min(10, "Number must be atleast 10 digits")
-            .required('Number is required'),
+            .required('Number is required')
+            .matches(/^[0-9]+$/, 'Must be only digits')
+            .length(10, 'Number must be exactly 10 digits'),
         password: Yup.string()
             .min(8, 'Password must be at least 8 characters')
             .required('Password is required'),

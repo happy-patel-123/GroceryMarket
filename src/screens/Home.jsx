@@ -22,7 +22,8 @@ const Home = () => {
     //     }
     // };
 
-    const data = useSelector(state => state)
+    const cartData = useSelector(state => state.cartReducer)
+    const wishListData = useSelector(state => state.wishListReducer)
 
     return (
         <View style={{ flex: 1 }}>
@@ -66,7 +67,7 @@ const Home = () => {
                         <Image source={localAssets.bag} style={{ height: 30, width: 30, tintColor: '#FFF' }}/>
                     </TouchableOpacity>
                     <View style={styles.counterContainer}>
-                        <Text style={styles.counter}>{data.cartReducer.cartItems.length}</Text>
+                        <Text style={styles.counter}>{cartData.cartItems.length}</Text>
                     </View>
                 </View>
                 <TouchableOpacity style={styles.iconContainer} onPress={() => setSelectedTab(3)}>
@@ -75,7 +76,7 @@ const Home = () => {
                         style={{ height: 30, width: 30, tintColor: selectedTab == 3 ? '#000': '#8e8e8e' }}
                     />
                     <View style={[styles.counterContainer, { top: 8, right: 15 }]}>
-                        <Text style={styles.counter}>{data.wishListReducer.wishListItems.length}</Text>
+                        <Text style={styles.counter}>{wishListData.wishListItems.length}</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={() => setSelectedTab(4)}>

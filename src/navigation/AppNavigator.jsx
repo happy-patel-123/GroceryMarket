@@ -5,6 +5,8 @@ import Login from '../screens/Login'
 import Splash from '../screens/Splash'
 import SignUp from '../screens/SignUp'
 import Home from '../screens/Home'
+import Address from '../screens/Address'
+import AddAddress from '../screens/AddAddress'
 
 const AppNavigator = () => {
 
@@ -17,6 +19,8 @@ const AppNavigator = () => {
                 <Stack.Screen name='Login' component={Login} options={{ headerShown: false}} />
                 <Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false}} />
                 <Stack.Screen name='Home' component={Home} options={{ headerShown: false}} />
+                <Stack.Screen name='Address' component={Address} options={{ headerShown: false}} />
+                <Stack.Screen name='AddAddress' component={AddAddress} options={{ headerShown: false}} />
             </Stack.Navigator>
         </NavigationContainer>
     )
