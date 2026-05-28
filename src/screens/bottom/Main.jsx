@@ -4,8 +4,12 @@ import Header from '../../common/Header'
 import { groceryProducts } from '../../data/GroceryProducts'
 import ProductCard from '../../common/ProductCard'
 import { localAssets } from '../../assets/Assets'
+import { useDispatch } from 'react-redux'
+import { addToCart, addToWishList } from '../../redux/actions/Actions'
 
 const Main = () => {
+    const dispatch = useDispatch()
+
     const [groceryCategory, setGroceryCategory] = useState([])
     const [vegetableList, setVegetableList] = useState([])
     const [fruitList, setFruitList] = useState([])
@@ -30,7 +34,6 @@ const Main = () => {
     return (
         <ScrollView style={{ flex: 1, marginBottom: 60 }}>
             <View style={{ flex: 1 }}>
-                <StatusBar barStyle={'dark-content'}/>
                 <Header />
                 <Image source={localAssets.banner} style={{ height: 200, width: '94%', alignSelf: 'center', marginTop: 8 }}/>
                 
@@ -57,7 +60,15 @@ const Main = () => {
                     showsHorizontalScrollIndicator={false}
                     renderItem={({item, index}) => {
                         return (
-                            <ProductCard item={item} />
+                            <ProductCard 
+                                item={item} 
+                                addItemToCart={(item) => {
+                                    dispatch(addToCart(item))
+                                }}
+                                addItemToWishList={(item) => {
+                                    dispatch(addToWishList(item))
+                                }}
+                            />
                         )
                     }}
                 />
@@ -69,7 +80,15 @@ const Main = () => {
                     showsHorizontalScrollIndicator={false}
                     renderItem={({item, index}) => {
                         return (
-                            <ProductCard item={item} />
+                            <ProductCard 
+                                item={item} 
+                                addItemToCart={(item) => {
+                                    dispatch(addToCart(item))
+                                }}
+                                addItemToWishList={(item) => {
+                                    dispatch(addToWishList(item))
+                                }}
+                            />
                         )
                     }}
                 />
@@ -81,7 +100,15 @@ const Main = () => {
                     showsHorizontalScrollIndicator={false}
                     renderItem={({item, index}) => {
                         return (
-                            <ProductCard item={item} />
+                            <ProductCard 
+                                item={item} 
+                                addItemToCart={(item) => {
+                                    dispatch(addToCart(item))
+                                }}
+                                addItemToWishList={(item) => {
+                                    dispatch(addToWishList(item))
+                                }}
+                            />
                         )
                     }}
                 />
@@ -93,7 +120,15 @@ const Main = () => {
                     showsHorizontalScrollIndicator={false}
                     renderItem={({ item, index}) => {
                         return (
-                            <ProductCard item={item} />
+                            <ProductCard 
+                                item={item} 
+                                addItemToCart={(item) => {
+                                    dispatch(addToCart(item))
+                                }}
+                                addItemToWishList={(item) => {
+                                    dispatch(addToWishList(item))
+                                }}
+                            />
                         )
                     }}
                 />

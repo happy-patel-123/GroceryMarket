@@ -1,10 +1,10 @@
 import React from "react";
-import AppNavigator from './src/navigation/AppNavigator'
+import MainContainer from './src/screens/MainContainer'
 
 function App() {
 
   return (
-    <AppNavigator />
+    <MainContainer />
   );
 }
 

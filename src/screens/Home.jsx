@@ -1,4 +1,4 @@
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import Main from '../screens/bottom/Main'
 import Search from '../screens/bottom/Search'
@@ -7,6 +7,7 @@ import WishList from '../screens/bottom/WishList'
 import Profile from '../screens/bottom/Profile'
 import { localAssets } from "../assets/Assets"
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector } from 'react-redux'
 
 const Home = () => {
     const [selectedTab, setSelectedTab] = useState(0)
@@ -20,6 +21,8 @@ const Home = () => {
     //         console.log(error);
     //     }
     // };
+
+    const data = useSelector(state => state)
 
     return (
         <View style={{ flex: 1 }}>
@@ -60,14 +63,20 @@ const Home = () => {
                         }}
                         onPress={() => setSelectedTab(2)}
                     >
-                        <Image source={localAssets.bag} style={{ height: 30, width: 30, tintColor: selectedTab == 2 ? '#000' : '#FFF' }}/>
+                        <Image source={localAssets.bag} style={{ height: 30, width: 30, tintColor: '#FFF' }}/>
                     </TouchableOpacity>
+                    <View style={styles.counterContainer}>
+                        <Text style={styles.counter}>{data.cartReducer.cartItems.length}</Text>
+                    </View>
                 </View>
                 <TouchableOpacity style={styles.iconContainer} onPress={() => setSelectedTab(3)}>
                     <Image 
                         source={localAssets.heart} 
                         style={{ height: 30, width: 30, tintColor: selectedTab == 3 ? '#000': '#8e8e8e' }}
                     />
+                    <View style={[styles.counterContainer, { top: 8, right: 15 }]}>
+                        <Text style={styles.counter}>{data.wishListReducer.wishListItems.length}</Text>
+                    </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={() => setSelectedTab(4)}>
                     <Image 
@@ -98,4 +107,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    counterContainer: {
+        width: 20, 
+        height: 20,
+        borderRadius: 10,
+        position: 'absolute',
+        top: -15,
+        right: 10,
+        backgroundColor: 'red',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    counter: {
+        color: '#FFF',
+        fontWeight: '600'
+    }
 })

@@ -2,15 +2,15 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { localAssets } from '../assets/Assets'
 
-const ProductCard = ({ item, addItemToCart, addItemToWishList }) => {
+const CartCard = ({ item, removeItemFromCart, addItemToWishList }) => {
     return (
         <View style={styles.cardContainer}>
             <Image source={item.image} style={styles.cardImg}/>
             <Text style={styles.cardTitle}>{item.name}</Text>
             <View style={styles.cardPriceContainer}>
                 <Text style={styles.price}>{'₹'}{' '}{item.price}</Text>
-                <TouchableOpacity style={styles.addToCartView} onPress={() => addItemToCart(item)}>
-                    <Text style={styles.addToCart}>Add to cart</Text>
+                <TouchableOpacity style={styles.addToCartView} onPress={() => removeItemFromCart()}>
+                    <Text style={styles.addToCart}>Remove from Cart</Text>
                 </TouchableOpacity>
             </View>
             <TouchableOpacity style={styles.heartContainer} onPress={() => addItemToWishList(item)}>
@@ -20,15 +20,16 @@ const ProductCard = ({ item, addItemToCart, addItemToWishList }) => {
     )
 }
 
-export default ProductCard
+export default CartCard
 
 const styles = StyleSheet.create({
     cardContainer: {
-        width: 200, 
+        width: '90%', 
         height: 250,
         borderRadius: 20,
         backgroundColor: '#FFF',
         marginLeft: 16,
+        marginBottom: 16
     },
     cardImg: {
         width: '100%',

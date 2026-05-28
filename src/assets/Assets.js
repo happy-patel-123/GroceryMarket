@@ -3,6 +3,7 @@ export const localAssets = {
     bag: require('./icons/bag.png'),
     email: require('./icons/email.png'),
     heart: require('./icons/heart.png'),
+    heart_fill: require('./icons/heart_fill.png'),
     hide: require('./icons/hide.png'),
     home: require('./icons/home.png'),
     password: require('./icons/password.png'),
