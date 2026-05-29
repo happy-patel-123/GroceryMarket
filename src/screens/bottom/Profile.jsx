@@ -38,9 +38,16 @@ const Profile = () => {
                     Address
                 </Text>
                 <View style={styles.seperator} />
-                <Text style={styles.infoText}>Contant Us</Text>
+                <Text 
+                    style={styles.infoText} 
+                    onPress={() => {
+                        navigation.navigate('MyOrders')
+                    }}
+                >
+                    Orders
+                </Text>
                 <View style={styles.seperator} />
-                <Text style={styles.infoText}>Terms and Conditons</Text>
+                <Text style={styles.infoText}>Offers</Text>
                 <View style={styles.seperator} />
             </View>
         </View>

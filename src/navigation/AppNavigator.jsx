@@ -7,6 +7,9 @@ import SignUp from '../screens/SignUp'
 import Home from '../screens/Home'
 import Address from '../screens/Address'
 import AddAddress from '../screens/AddAddress'
+import CheckOut from '../screens/CheckOut'
+import SuccessPayment from '../screens/SuccessPayment'
+import MyOrders from '../screens/MyOrders'
 
 const AppNavigator = () => {
 
@@ -21,6 +24,9 @@ const AppNavigator = () => {
                 <Stack.Screen name='Home' component={Home} options={{ headerShown: false}} />
                 <Stack.Screen name='Address' component={Address} options={{ headerShown: false}} />
                 <Stack.Screen name='AddAddress' component={AddAddress} options={{ headerShown: false}} />
+                <Stack.Screen name='CheckOut' component={CheckOut} options={{ headerShown: false}} />
+                <Stack.Screen name='SuccessPayment' component={SuccessPayment} options={{ headerShown: false}} />
+                <Stack.Screen name='MyOrders' component={MyOrders} options={{ headerShown: false}} />
             </Stack.Navigator>
         </NavigationContainer>
     )

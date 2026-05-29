@@ -19,7 +19,8 @@ export const localAssets = {
     building: require('./icons/building.png'),
     pin: require('./icons/pin.png'),
     bin: require('./icons/bin.png'),
-
+    success: require('./icons/success.png'),
+    failed: require('./icons/failed.png'),
 
     // Images
     banner: require('./images/banner.jpg'),

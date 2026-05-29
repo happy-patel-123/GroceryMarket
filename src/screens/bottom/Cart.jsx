@@ -4,10 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import CartCard from "../../common/CartCard";
 import { addToWishList, removeFromCart } from '../../redux/actions/Actions';
 import CustomButton from '../../common/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
 const Cart = () => {
     const dispatch = useDispatch()
     const cartData = useSelector(state => state.cartReducer.cartItems)
+
+    const navigation = useNavigation()
 
     return (
         <View style={{ flex: 1, marginTop: 32, marginBottom: 60 }}>
@@ -31,7 +34,9 @@ const Cart = () => {
                             }}
                         />
                         <View style={{ marginBottom: 32, position: 'absolute', width: '100%', bottom: 0 }}>
-                            <CustomButton title='CHECKOUT' bgColor={'green'} txtColor={'#FFF'} />
+                            <CustomButton title='CHECKOUT' bgColor={'green'} txtColor={'#FFF'} onPress={() => {
+                                navigation.navigate('CheckOut')
+                            }} />
                         </View>
                     </>
                 ) : (

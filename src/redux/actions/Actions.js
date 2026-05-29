@@ -1,4 +1,4 @@
-import { ADD_ADDRESS, ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_ADDRESS, REMOVE_FROM_CART, REMOVE_FROM_WISHLIST } from "../ActionTypes";
+import { ADD_ADDRESS, ADD_ORDERS, ADD_TO_CART, ADD_TO_WISHLIST, REMOVE_ADDRESS, REMOVE_FROM_CART, REMOVE_FROM_WISHLIST, REMOVE_ORDERS } from "../ActionTypes";
 
 const addToCart = (data) => ({
     type: ADD_TO_CART,
@@ -30,4 +30,14 @@ const removeAddress = (index) => ({
     payload: index
 })
 
-export { addToCart, removeFromCart, addToWishList, removeFromWishList, addAddress, removeAddress };
+const addOrders = (data) => ({
+    type: ADD_ORDERS,
+    payload: data
+})
+
+const removeOrders = (index) => ({
+    type: REMOVE_ORDERS,
+    payload: index
+})
+
+export { addToCart, removeFromCart, addToWishList, removeFromWishList, addAddress, removeAddress, addOrders, removeOrders };
