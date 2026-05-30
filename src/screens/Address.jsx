@@ -52,7 +52,7 @@ export default Address
 const styles = StyleSheet.create({
     container: {
         marginHorizontal: 16,
-        marginTop: 32,
+        marginTop: 16,
         flex: 1,
     },
     headerContainer: {

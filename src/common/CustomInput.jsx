@@ -1,7 +1,7 @@
-import { View, Text, Image, TextInput } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-const CustomInput = ({ icon, placeholder, value, onChangeText, type, keyboardtype }) => {
+const CustomInput = ({ icon, placeholder, value, onChangeText, type, keyboardtype, rightIcon, onPressRightIcon }) => {
     return (
         <View style={{
             height: 50,
@@ -12,16 +12,28 @@ const CustomInput = ({ icon, placeholder, value, onChangeText, type, keyboardtyp
             marginTop: 32,
             paddingHorizontal: 8,
             flexDirection: 'row',
-            alignItems: 'center'
+            alignItems: 'center',
+            justifyContent: 'space-between'
         }}>
-            <Image source={icon} style={{ width: 32, height: 32, tintColor: '#808080', marginRight: 4 }}/>
-            <TextInput 
-                placeholder={placeholder}
-                secureTextEntry={type === 'password' ? true : false}
-                value={value}
-                onChangeText={onChangeText}
-                keyboardType={keyboardtype ? keyboardtype : 'default'}
-            />
+            <View style={{ flexDirection: 'row', alignItems: 'center'}}>
+                <Image source={icon} style={{ width: 32, height: 32, tintColor: '#808080', marginRight: 4 }} />
+                <TextInput
+                    placeholder={placeholder}
+                    secureTextEntry={type === 'password' ? true : false}
+                    value={value}
+                    onChangeText={onChangeText}
+                    keyboardType={keyboardtype ? keyboardtype : 'default'}
+                />
+            </View>
+            <View>
+                {
+                    rightIcon
+                        ? <TouchableOpacity onPress={onPressRightIcon}>
+                            <Image source={rightIcon} style={{ width: 32, height: 32, tintColor: '#808080'  }} />
+                        </TouchableOpacity>
+                        : <></>
+                }
+            </View>
         </View>
     )
 }

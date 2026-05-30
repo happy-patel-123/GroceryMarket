@@ -1,5 +1,5 @@
-import { ActivityIndicator, Alert, Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { ActivityIndicator, Alert, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import CustomInput from '../common/CustomInput'
 import CustomButton from '../common/CustomButton'
@@ -10,6 +10,7 @@ import { localAssets } from '../assets/Assets'
 
 const Login = () => {
     const navigation = useNavigation();
+    const [passwordShow, setPasswordShow] = useState(false)
 
     const validationSchema = Yup.object({
         email: Yup.string()
@@ -40,7 +41,8 @@ const Login = () => {
 
 
     return (
-        <View style={{ flex: 1 }}>
+        <KeyboardAvoidingView style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1 }}>
             <Image 
                 style={styles.splashImg}
                 source={localAssets.splash} 
@@ -85,7 +87,11 @@ const Login = () => {
                                 value={values.password}
                                 onChangeText={handleChange('password')}
                                 onBlur={handleBlur("password")}
-                                type={'password'}
+                                type={passwordShow ? 'default' : 'password'}
+                                rightIcon={passwordShow ? localAssets.show : localAssets.hide}
+                                onPressRightIcon={() => {
+                                    setPasswordShow(!passwordShow)
+                                }}
                             />
                             {
                                 touched.password && errors.password
@@ -122,7 +128,8 @@ const Login = () => {
                     )
                 }}
             </Formik>
-        </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 

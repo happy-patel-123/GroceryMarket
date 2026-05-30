@@ -18,7 +18,7 @@ const SignUp = () => {
         email: Yup.string()
             .email()
             .required('Eamil is required'),
-        number: Yup.number()
+        number: Yup.string()
             .required('Number is required')
             .matches(/^[0-9]+$/, 'Must be only digits')
             .length(10, 'Number must be exactly 10 digits'),

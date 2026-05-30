@@ -6,21 +6,10 @@ import Cart from '../screens/bottom/Cart'
 import WishList from '../screens/bottom/WishList'
 import Profile from '../screens/bottom/Profile'
 import { localAssets } from "../assets/Assets"
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector } from 'react-redux'
 
 const Home = () => {
     const [selectedTab, setSelectedTab] = useState(0)
-
-    // const handleLogout = async () => {
-
-    //     try {
-    //         await AsyncStorage.removeItem('user');
-    //         navigation.replace('Login');
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
 
     const cartData = useSelector(state => state.cartReducer)
     const wishListData = useSelector(state => state.wishListReducer)

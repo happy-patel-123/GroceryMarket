@@ -1,4 +1,4 @@
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -87,44 +87,48 @@ const CheckOut = () => {
             }
             <View style={{ position: 'absolute', bottom: 50, width: '100%'}}>
                 <CustomButton bgColor={'green'} txtColor={'#FFF'} title={'PLACE ORDER'} onPress={() => {
-                    var options = {
-                        description: 'ECommerce SuperMarket',
-                        image: 'https://i.imgur.com/3g7nmJC.jpg',
-                        currency: 'INR',
-                        key: 'rzp_test_SvBZfa2pHp2Jbx',
-                        amount: '' + parseInt(getCartTotal() * 100) + '',
-                        name: 'Happy Testing',
-                        order_id: '',//Replace this with an order_id created using Orders API.
-                        prefill: {
-                            email: 'demo.happy@example.com',
-                            contact: '+919723617964',
-                            name: 'Happy Patel'  
-                        },
-                        theme: { color: '#53a20e' }
-                    }
-                    RazorpayCheckout.open(options).then((data) => {
-                        // handle success
-                        // alert(`Success: ${data.razorpay_payment_id}`);
-                        console.log(`Success: ${data.razorpay_payment_id}`);
-                        
-                        dispatch(addOrders({
-                            cartItemsData: cartData,
-                            totalPrice: getCartTotal(),
-                            address: selectAddress
-                        }))
+                    if (selectAddress.building) {
+                        var options = {
+                            description: 'ECommerce SuperMarket',
+                            image: 'https://i.imgur.com/3g7nmJC.jpg',
+                            currency: 'INR',
+                            key: 'rzp_test_SvBZfa2pHp2Jbx',
+                            amount: '' + parseInt(getCartTotal() * 100) + '',
+                            name: 'Happy Testing',
+                            order_id: '',//Replace this with an order_id created using Orders API.
+                            prefill: {
+                                email: 'demo.happy@example.com',
+                                contact: '+919723617964',
+                                name: 'Happy Patel'
+                            },
+                            theme: { color: '#53a20e' }
+                        }
+                        RazorpayCheckout.open(options).then((data) => {
+                            // handle success
+                            // alert(`Success: ${data.razorpay_payment_id}`);
+                            console.log(`Success: ${data.razorpay_payment_id}`);
 
-                        navigation.navigate('SuccessPayment', {
-                            paymentStatus: 'success'
-                        })
-                    }).catch((error) => {
-                        // handle failure
-                        console.log(`Error: ${error.code} | ${error.description}`);
-                        // alert(`Error: ${error.code} | ${error.description}`);
-                        navigation.navigate('SuccessPayment', {
-                            paymentStatus: 'failed'
-                        })
-                    });
-                }}/>
+                            dispatch(addOrders({
+                                cartItemsData: cartData,
+                                totalPrice: getCartTotal(),
+                                address: selectAddress
+                            }))
+
+                            navigation.navigate('SuccessPayment', {
+                                paymentStatus: 'success'
+                            })
+                        }).catch((error) => {
+                            // handle failure
+                            console.log(`Error: ${error.code} | ${error.description}`);
+                            // alert(`Error: ${error.code} | ${error.description}`);
+                            navigation.navigate('SuccessPayment', {
+                                paymentStatus: 'failed'
+                            })
+                        });
+                    } else {
+                        Alert.alert('Please Select Address')
+                    }
+                }} />
             </View>
         </View>
     )

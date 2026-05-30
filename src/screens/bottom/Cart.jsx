@@ -1,4 +1,4 @@
-import { View, FlatList, Text } from 'react-native'
+import { View, FlatList, Text, Alert } from 'react-native'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CartCard from "../../common/CartCard";
@@ -9,6 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 const Cart = () => {
     const dispatch = useDispatch()
     const cartData = useSelector(state => state.cartReducer.cartItems)
+    const addressData = useSelector(state => state.addressReducer.addressItems)
+    
 
     const navigation = useNavigation()
 
@@ -35,7 +37,12 @@ const Cart = () => {
                         />
                         <View style={{ marginBottom: 32, position: 'absolute', width: '100%', bottom: 0 }}>
                             <CustomButton title='CHECKOUT' bgColor={'green'} txtColor={'#FFF'} onPress={() => {
-                                navigation.navigate('CheckOut')
+                                if (addressData.length) {
+                                    console.log(addressData)
+                                    navigation.navigate('CheckOut')
+                                } else {
+                                    Alert.alert('Please Add Address')
+                                }
                             }} />
                         </View>
                     </>

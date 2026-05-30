@@ -19,6 +19,19 @@ const Profile = () => {
         setName(parsedUserInfo.name)
     }
 
+    const handleLogout = async () => {
+
+        try {
+            await AsyncStorage.removeItem('user');
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Login' }],
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -49,6 +62,8 @@ const Profile = () => {
                 <View style={styles.seperator} />
                 <Text style={styles.infoText}>Offers</Text>
                 <View style={styles.seperator} />
+                <Text style={styles.infoText} onPress={handleLogout}>Logout</Text>
+                <View style={styles.seperator} />
             </View>
         </View>
     )
@@ -59,7 +74,7 @@ export default Profile
 const styles = StyleSheet.create({
     container: {
         marginHorizontal: 16,
-        marginTop: 32,
+        // marginTop: 16,
         marginBottom: 60,
         flex: 1,
     },
